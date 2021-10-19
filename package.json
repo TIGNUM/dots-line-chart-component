@@ -12,7 +12,8 @@
     "build": "vue-cli-service build --target lib --report --inline-vue ./src/components/DotsLineChartComponent.vue",
     "unit": "vue-cli-service test:unit",
     "e2e": "vue-cli-service test:e2e",
-    "lint": "vue-cli-service lint"
+    "lint": "vue-cli-service lint",
+    "release": "semantic-release"
   },
   "license": "MIT",
   "dependencies": {
