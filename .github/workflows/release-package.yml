@@ -1,0 +1,43 @@
+name: Release
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+          node-version: 12
+          registry-url: https://registry.npmjs.org/
+      - name: Install packages
+        run: npm install
+      - name: Lint
+        run: npm run lint
+      - name: Build Chart component
+        run: npm run build
+        env:
+          NODE_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
+      - name: Test Chart Component
+        run: npm run test
+      - name: Release
+        run: npm run release
+        env:
+          NPM_TOKEN: ${{secrets.NPM_TOKEN}}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Slack Notification
+        uses: rtCamp/action-slack-notify@v2
+        env:
+          RELEASE_VERSION: ${{ github.event.client_payload.tag }}
+          SLACK_CHANNEL: web-libraries-release
+          SLACK_COLOR: ${{ job.status }} # or a specific color like 'green' or '#ff00ff'
+          SLACK_ICON: https://github.com/quintessence/slack-icons/blob/master/images/octocat-spock-slack-icon.png
+          SLACK_MESSAGE: "New version deployed :rocket: Dots-Line Chart Component ${{ github.event.client_payload.tag }} new version available!"
+          SLACK_TITLE: ${{ github.event.client_payload.tag }} Dots-Line Chart Component
+          SLACK_USERNAME: GitHubActions
+          SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
