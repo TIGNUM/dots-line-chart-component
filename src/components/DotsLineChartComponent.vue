@@ -3,13 +3,20 @@
     Hello from chart
     <button
       type="button"
-      @click="count++"
+      @click="$emit('increment-count')"
     >
       Count: {{ count }}
     </button>
   </div>
 </template>
 
-<script setup lang="ts">
-defineProps<{count: number}>();
+<script lang="ts">
+export default {
+  props: {
+    count: {
+      type: Number,
+      default: 1
+    }
+  }
+};
 </script>

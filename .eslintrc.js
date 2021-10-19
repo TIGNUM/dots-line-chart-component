@@ -10,13 +10,16 @@ module.exports = {
     'cypress'
   ],
   parserOptions: {
-    'parser': 'babel-eslint'
+    'parser': '@typescript-eslint/parser',
+    'sourceType': 'module'
   },
   extends: [
-    'plugin:vue/essential',
-    'plugin:vue/recommended',
-    'plugin:sonarjs/recommended',
-    'eslint:recommended'
+    'plugin:vue/base',
+    'plugin:vue/vue3-essential',
+    'plugin:vue/vue3-strongly-recommended',
+    'plugin:vue/vue3-recommended',
+    'eslint:recommended',
+    'plugin:sonarjs/recommended'
   ],
   rules: {
     'quotes': [

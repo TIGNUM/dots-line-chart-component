@@ -1,11 +1,21 @@
 <template>
   <div class="dots-line-chart">
-    <DotsLineChartComponent :count="1" />
+    <DotsLineChartComponent
+      :count="counter"
+      @incrementCount="counter++"
+    />
   </div>
 </template>
 
-<script setup lang="ts">
+<script lang="ts">
 import '../dist/dots-line-chart-component.umd.js';
+export default {
+  data(){
+    return {
+      counter: 1
+    };
+  }
+};
 </script>
 
 <style lang="scss">
